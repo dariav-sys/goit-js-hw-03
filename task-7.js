@@ -84,7 +84,7 @@ const account = {
       }
     
     };
-    return [];
+    return {type: "n/a", amount: "n/a"} ;
     
   },
 
@@ -112,7 +112,7 @@ account.withdraw(30);
 account.deposit(170);
 account.withdraw(80);
 console.log('current balance: ', account.getBalance());
-let id = 7;
+let id = 80;
 let result = account.getTransactionDetails(id);
 console.log(`Transaction ${id} was: `, result.type, result.amount);
 let type = Transaction.DEPOSIT;
