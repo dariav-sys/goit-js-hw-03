@@ -12,7 +12,7 @@ const getAllPropValues = function (arr, prop) {
   
   for (const key of arr) {     
     if (!key[prop]) {
-    return [];
+    return propArray;
     }      
     propArray.push(key[prop]);    
   }  

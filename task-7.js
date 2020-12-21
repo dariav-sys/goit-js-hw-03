@@ -17,6 +17,8 @@ const account = {
   // Текущий баланс счета
   balance: 0,
 
+  ID: 1,
+
   // История транзакций
   transactions: [],
 
@@ -25,7 +27,10 @@ const account = {
    * Принимает сумму и тип транзакции.
    */
   createTransaction(amount, type) {
-    return { type, amount };
+    let currentID = this.ID;
+    let transaction = { currentID, type, amount };
+    this.ID += 1;
+    return transaction;
   },
 
 
@@ -36,11 +41,10 @@ const account = {
    * Вызывает createTransaction для создания объекта транзакции
    * после чего добавляет его в историю транзакций
    */
-  deposit(amount) { 
+  deposit(amount) {
     this.balance += amount;
     const transaction = this.createTransaction(amount, Transaction.DEPOSIT);
     this.transactions.push(transaction);
-   
   },
   
 
@@ -61,7 +65,6 @@ const account = {
     this.balance -= amount;
     const transaction = this.createTransaction(amount, Transaction.WITHDRAW);
     this.transactions.push(transaction);
-   
   },
 
   /*
@@ -75,10 +78,14 @@ const account = {
    * Метод ищет и возвращает объект транзации по id
    */
   getTransactionDetails(id) {
-    if (id >= this.transactions.length) {
-      return {};
-    }
-    return this.transactions[id];
+    for (let transaction of this.transactions) {
+      if (id === transaction.currentID) {
+        return transaction;
+      }
+    
+    };
+    return [];
+    
   },
 
   /*
@@ -90,11 +97,12 @@ const account = {
     for (const transaction of this.transactions) {
       if (transaction.type === type) {
         totalAmountOfType += transaction.amount;
-        }
-    }
+      };
+    };
     return totalAmountOfType;
   },
 };
+
 
 // console.log(account.createTransaction(100, Transaction.DEPOSIT));
 account.deposit(200);
@@ -104,7 +112,7 @@ account.withdraw(30);
 account.deposit(170);
 account.withdraw(80);
 console.log('current balance: ', account.getBalance());
-let id = 1;
+let id = 7;
 let result = account.getTransactionDetails(id);
 console.log(`Transaction ${id} was: `, result.type, result.amount);
 let type = Transaction.DEPOSIT;

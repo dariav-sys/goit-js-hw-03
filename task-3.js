@@ -12,6 +12,8 @@ const findBestEmployee = function (employees) {
   return mostProductiveEmployee;
 };
 
+  
+
 /*
 //  * Вызовы функции для проверки работоспособности твоей реализации.
 //  */
